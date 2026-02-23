@@ -1,6 +1,7 @@
 
 def atv1():
     print("Executando atividade 1")
+
     def recursive_multi(a, b):
         if b == 0:
             return 0
@@ -12,6 +13,7 @@ def atv1():
 
 def atv2():
     print("Executando atividade 2")
+
     def show_multiples(n, q, count):
         if count > q:
             return
@@ -39,6 +41,7 @@ def atv3():
 
 def atv4():  
     print("Executando atividade 4")
+
     def sum_vetor(v, n):
         if n == 0:
             return 0
@@ -51,6 +54,8 @@ def atv4():
     print(sum_vetor(vetor, n)) 
 
 def atv5():
+    print("Executando atividade 5")
+
     def binary_base(n, b):
         if n == 0:
             return "0"
