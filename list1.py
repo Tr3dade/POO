@@ -68,9 +68,67 @@ def atv5():
     b = (int(input("b = ")))
     print(binary_base(n, b))
 
-# def atv6():
+def atv6():
+    print("Execultando atividade 6")
 
-# def atv7():
+    class Data:
+        def __init__(self, dia, mes, ano):
+            self.dia = dia
+            self.mes = mes
+            self.ano = ano
+
+        def __str__(self):
+            return f"{self.dia:02d}/{self.mes:02d}/{self.ano}"
+
+    class Funcionario:
+        def __init__(self, matricula, nome, departamento, salario, data_admissao):
+            self.matricula = matricula
+            self.nome = nome
+            self.departamento = departamento
+            self.salario = salario
+            self.data_admissao = data_admissao
+
+        def __str__(self):
+            return f"Matrícula: {self.matricula}, Nome: {self.nome}, Departamento: {self.departamento}, Salário: {self.salario}, Data de Admissão: {self.data_admissao}"
+    
+    def register_employee():
+
+        funcionarios = []
+
+        for i in range(50):
+            print(f"\nCadastro de Funcionário {i+1}")
+
+            matricula = input("Matrícula: ")
+            nome = input("Nome: ")
+            departamento = input("Departamento: ")
+            salario = float(input("Salário: "))
+            dia = int(input("Dia de Admissão: "))
+            mes = int(input("Mês de Admissão: "))
+            ano = int(input("Ano de Admissão: "))
+
+            data_admissao = Data(dia, mes, ano)
+            funcionario = Funcionario(matricula, nome, departamento, salario, data_admissao)
+            
+            funcionarios.append(funcionario)
+        return funcionarios
+    
+    def show(funcionarios):
+        print("\nDigite o departamento para listar os funcionários:")
+        
+        departamento = input("Departamento: ")
+        print(f"\nFuncionários do Departamento '{departamento}':")
+
+        valid = False
+        for f in funcionarios:
+            if f.departamento == departamento:
+                print(f)
+                valide = True
+        if not valid:
+            print("Nenhum funcionário encontrado nesse departamento.")
+
+    funcionarios = register_employee()
+    show(funcionarios)
+
 
 # def atv8():
 
@@ -93,6 +151,11 @@ while True:
         atv3()
     elif opcao == 4:
         atv4()
+    elif opcao == 5:
+        atv5()
+    elif opcao == 6:
+        atv6()
+    
     elif opcao == 0:
         print("Encerrando...")
         break
