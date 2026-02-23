@@ -37,9 +37,31 @@ def atv3():
     else:
         print(series(n))
 
-def atv4():   
+def atv4():  
+    print("Executando atividade 4")
+    def sum_vetor(v, n):
+        if n == 0:
+            return 0
+        return v[n - 1] + sum_vetor(v, n - 1)
+    n = (int(input("n = ")))
+    vetor = []
+    for i in range(n):
+        valor = (int(input(f"v[{i}] = ")))
+        vetor.append(valor)
+    print(sum_vetor(vetor, n)) 
 
-# def atv5():
+def atv5():
+    def binary_base(n, b):
+        if n == 0:
+            return "0"
+        digits = []
+        while n:
+            digits.append(str(n % b))
+            n //= b
+        return ''.join(digits[::-1])
+    n = (int(input("n = ")))
+    b = (int(input("b = ")))
+    print(binary_base(n, b))
 
 # def atv6():
 
