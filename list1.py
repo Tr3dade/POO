@@ -129,6 +129,89 @@ def atv6():
     funcionarios = register_employee()
     show(funcionarios)
 
+def atv7():
+    print("Executando atividade 7")
+
+    class Vetor:
+        def __init__(self, n):
+            self.n = n
+            self.vetor = [0] * n
+
+        # Preenche um valor em uma posição
+        def preencher(self, posicao, valor):
+            if 0 <= posicao < self.n:
+                self.vetor[posicao] = valor
+            else:
+                print("Posição inválida.")
+        
+        def recuperar(self, posicao):
+            if 0 <= posicao < self.n:
+                return self.vetor[posicao]
+            else:
+                print("Posição inválida.")
+                return None
+        
+        def existe(self, valor):
+            return valor in self.vetor
+        
+        def soma(self):
+            return sum(self.vetor)
+        
+        def soma_par(self):
+            return sum(x for x in self.vetor if x % 2 == 0)
+        
+        def soma_impar(self):
+            return sum(x for x in self.vetor if x % 2 != 0)
+        
+        def lista(self):
+            print("Vetor:", self.vetor)
+            for i, valor in enumerate(self.vetor):
+                print(f"Posição {i}: {valor}")
+
+    def menu():
+        n = int(input("Tamanho do vetor: "))
+        vetor = Vetor(n)
+
+        while True:
+            print("\nMenu:")
+            print("1 - Preencher posição")
+            print("2 - Recuperar valor")
+            print("3 - Verificar existência de valor")
+            print("4 - Soma total")
+            print("5 - Soma dos pares")
+            print("6 - Soma dos ímpares")
+            print("7 - Listar vetor")
+            print("0 - Sair")
+
+            opcao = int(input("Escolha: "))
+
+            if opcao == 1:
+                posicao = int(input("Posição: "))
+                valor = int(input("Valor: "))
+                vetor.preencher(posicao, valor)
+            elif opcao == 2:
+                posicao = int(input("Posição: "))
+                valor = vetor.recuperar(posicao)
+                if valor is not None:
+                    print(f"Valor na posição {posicao}: {valor}")
+            elif opcao == 3:
+                valor = int(input("Valor a verificar: "))
+                existe = vetor.existe(valor)
+                print(f"Valor {'existe' if existe else 'não existe'} no vetor.")
+            elif opcao == 4:
+                print(f"Soma total: {vetor.soma()}")
+            elif opcao == 5:
+                print(f"Soma dos pares: {vetor.soma_par()}")
+            elif opcao == 6:
+                print(f"Soma dos ímpares: {vetor.soma_impar()}")
+            elif opcao == 7:
+                vetor.lista()
+            elif opcao == 0:
+                print("Encerrando...")
+                break
+            else:
+                print("Opção inválida.")
+        
 
 # def atv8():
 
@@ -155,6 +238,7 @@ while True:
         atv5()
     elif opcao == 6:
         atv6()
+    
     
     elif opcao == 0:
         print("Encerrando...")
