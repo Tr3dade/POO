@@ -141,87 +141,133 @@ def atv7():
         def preencher(self, posicao, valor):
             if 0 <= posicao < self.n:
                 self.vetor[posicao] = valor
+                print("Valor preenchido com sucesso.")
             else:
                 print("Posição inválida.")
-        
+
+        # Recupera o valor de uma posição
         def recuperar(self, posicao):
             if 0 <= posicao < self.n:
                 return self.vetor[posicao]
-            else:
-                print("Posição inválida.")
-                return None
-        
+            return "Posição inválida."
+            
+        # Verifica se um valor existe no vetor
         def existe(self, valor):
             return valor in self.vetor
         
+        # Soma total dos valores do vetor
         def soma(self):
             return sum(self.vetor)
-        
         def soma_par(self):
             return sum(x for x in self.vetor if x % 2 == 0)
-        
         def soma_impar(self):
             return sum(x for x in self.vetor if x % 2 != 0)
         
+        # Lista os valores do vetor
         def lista(self):
             print("Vetor:", self.vetor)
             for i, valor in enumerate(self.vetor):
                 print(f"Posição {i}: {valor}")
 
-    def menu():
-        n = int(input("Tamanho do vetor: "))
-        vetor = Vetor(n)
+    n = int(input("Tamanho do vetor: "))
+    v = Vetor(n)
 
-        while True:
-            print("\nMenu:")
-            print("1 - Preencher posição")
-            print("2 - Recuperar valor")
-            print("3 - Verificar existência de valor")
-            print("4 - Soma total")
-            print("5 - Soma dos pares")
-            print("6 - Soma dos ímpares")
-            print("7 - Listar vetor")
-            print("0 - Sair")
+    while True:
+        print("\nMenu:")
+        print("1 - Preencher posição")
+        print("2 - Recuperar valor")
+        print("3 - Verificar existência de valor")
+        print("4 - Soma total")
+        print("5 - Soma dos pares")
+        print("6 - Soma dos ímpares")
+        print("7 - Listar vetor")
+        print("0 - Sair")
 
-            opcao = int(input("Escolha: "))
+        opcao = int(input("Escolha: "))
 
-            if opcao == 1:
-                posicao = int(input("Posição: "))
-                valor = int(input("Valor: "))
-                vetor.preencher(posicao, valor)
-            elif opcao == 2:
-                posicao = int(input("Posição: "))
-                valor = vetor.recuperar(posicao)
-                if valor is not None:
-                    print(f"Valor na posição {posicao}: {valor}")
-            elif opcao == 3:
-                valor = int(input("Valor a verificar: "))
-                existe = vetor.existe(valor)
-                print(f"Valor {'existe' if existe else 'não existe'} no vetor.")
-            elif opcao == 4:
-                print(f"Soma total: {vetor.soma()}")
-            elif opcao == 5:
-                print(f"Soma dos pares: {vetor.soma_par()}")
-            elif opcao == 6:
-                print(f"Soma dos ímpares: {vetor.soma_impar()}")
-            elif opcao == 7:
-                vetor.lista()
-            elif opcao == 0:
-                print("Encerrando...")
-                break
-            else:
-                print("Opção inválida.")
+        if opcao == 1:
+            posicao = int(input("Posição: "))
+            valor = int(input("Valor: "))
+            v.preencher(posicao, valor)
+        elif opcao == 2:
+            posicao = int(input("Posição: "))
+            valor = v.recuperar(posicao)
+            if valor is not None:
+                print(f"Valor na posição {posicao}: {valor}")
+        elif opcao == 3:
+            valor = int(input("Valor a verificar: "))
+            existe = v.existe(valor)
+            print(f"Valor {'existe' if existe else 'não existe'} no vetor.")
+        elif opcao == 4:
+            print(f"Soma total: {v.soma()}")
+        elif opcao == 5:
+                print(f"Soma dos pares: {v.soma_par()}")
+        elif opcao == 6:
+            print(f"Soma dos ímpares: {v.soma_impar()}")
+        elif opcao == 7:
+            v.lista()
+        elif opcao == 0:
+            print("Encerrando...")
+            break
+        else:
+            print("Opção inválida.")
         
 
-# def atv8():
+def atv8():
+    print("Executando atividade 8")
+    
+    class Livro:
+        def __init__(self, titulo, autor,genero,ano):
+            self.titulo = titulo
+            self.autor = autor
+            self.genero = genero
+            self.ano = ano
+        
+        def search_title(self):
+            return self.titulo
+        def search_author(self):
+            return self.autor
+        def search_genre(self):
+            return self.genero
+        def search_year(self):
+            return self.ano
+        
+        def modernism(self):
+            return 1930 <= self.ano <= 1945
+        def borroco(self):
+            return 1601 <= self.ano <= 1768
+        
+        def __str__(self):
+            return(f"Título: {self.titulo}, Autor: {self.autor}, Gênero: {self.genero}, Ano: {self.ano}")
 
+    def register_books():
+        titulo = input("Título: ")
+        autor = input("Autor: ")
+        genero = input("Gênero: ")
+        ano = int(input("Ano: "))
+        return Livro(titulo, autor, genero, ano)
+    
+    livro = register_books()
+    print("\nLivro cadastrado:")
+    print(livro)
+    
+    if livro.modernism():
+        print("O livro pertence ao Modernismo.")
+    elif livro.borroco():
+        print("O livro pertence ao Barroco.")
+    
 # ===== MENU PRINCIPAL =====
-
 
 while True:
     print("\nLista de Exercícios")
     print("1 - Atividade 1")
     print("2 - Atividade 2")
+    print("3 - Atividade 3")
+    print("4 - Atividade 4")
+    print("5 - Atividade 5")
+    print("6 - Atividade 6")
+    print("7 - Atividade 7")
+    print("8 - Atividade 8")
     print("0 - Sair")
 
     opcao = int(input("Escolha: "))
@@ -238,8 +284,10 @@ while True:
         atv5()
     elif opcao == 6:
         atv6()
-    
-    
+    elif opcao == 7:
+        atv7()
+    elif opcao == 8:
+        atv8()    
     elif opcao == 0:
         print("Encerrando...")
         break
