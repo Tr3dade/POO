@@ -9,14 +9,14 @@ class Program
         while (true)
         {
             Console.WriteLine("\nLista de Exercícios");
-            Console.WriteLine("1 - Atividade 1");
-            Console.WriteLine("2 - Atividade 2");
-            Console.WriteLine("3 - Atividade 3");
-            Console.WriteLine("4 - Atividade 4");
-            Console.WriteLine("5 - Atividade 5");
-            Console.WriteLine("6 - Atividade 6");
-            Console.WriteLine("7 - Atividade 7");
-            Console.WriteLine("8 - Atividade 8");
+            Console.WriteLine("1 - Multiplicação recursiva (soma repetida)");
+            Console.WriteLine("2 - Mostrar múltiplos recursivamente");
+            Console.WriteLine("3 - Soma da série 1/n");
+            Console.WriteLine("4 - Soma recursiva de vetor");
+            Console.WriteLine("5 - Imprimir número em binário recursivamente");
+            Console.WriteLine("6 - Gerenciar cadastro de funcionários");
+            Console.WriteLine("7 - Operações em vetor (preencher, somas, listar)");
+            Console.WriteLine("8 - Dados e classificação de livro");
             Console.WriteLine("0 - Sair");
 
             Console.Write("Escolha: ");
@@ -131,43 +131,62 @@ class Program
     //  ATIVIDADE 5 
     static void Atv5()
     {
-        Console.WriteLine("Executando atividade 5");
+        Console.WriteLine("Executando: Imprimir número em binário recursivamente");
 
-        string ConvertBase(int n, int b)
+        // escrita recursiva de binário com 8 bits fixos
+        void PrintBinary(int value, int bits = 8)
         {
-            if (n == 0) return "0";
-
-            string result = "";
-            while (n > 0)
-            {
-                result = (n % b) + result;
-                n /= b;
-            }
-            return result;
+            if (bits == 0) return;
+            // chama para o próximo bit mais significativo
+            PrintBinary(value >> 1, bits - 1);
+            Console.Write((value >> (bits - 1)) & 1);
         }
 
         Console.Write("n = ");
         int n = int.Parse(Console.ReadLine());
 
-        Console.Write("b = ");
-        int b = int.Parse(Console.ReadLine());
+        if (n < 0)
+        {
+            Console.WriteLine("Número natural esperado.");
+            return;
+        }
 
-        Console.WriteLine(ConvertBase(n, b));
+        PrintBinary(n);
+        Console.WriteLine();
     }
 
     //  ATIVIDADE 6 
     static void Atv6()
     {
-        Console.WriteLine("Executando atividade 6");
+        Console.WriteLine("Executando: Gerenciar cadastro de funcionários");
 
         List<Funcionario> funcionarios = new List<Funcionario>();
 
-        for (int i = 0; i <= 50; i++) // reduzi para testes
+        Console.Write("Quantos funcionários deseja cadastrar? ");
+        int total = int.Parse(Console.ReadLine());
+
+        int i = 0;
+        while (funcionarios.Count < total)
         {
             Console.WriteLine($"\nCadastro de Funcionário {i + 1}");
 
-            Console.Write("Matrícula: ");
-            string matricula = Console.ReadLine();
+            string matricula;
+            do
+            {
+                Console.Write("Matrícula: ");
+                matricula = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(matricula))
+                {
+                    Console.WriteLine("Matrícula não pode ser vazia.");
+                    continue;
+                }
+
+                if (funcionarios.Any(f => f.Matricula == matricula))
+                {
+                    Console.WriteLine("Matrícula já cadastrada. Digite uma matrícula diferente.");
+                    matricula = null; // força repetição
+                }
+            } while (string.IsNullOrWhiteSpace(matricula));
 
             Console.Write("Nome: ");
             string nome = Console.ReadLine();
@@ -189,6 +208,7 @@ class Program
 
             Data data = new Data(dia, mes, ano);
             funcionarios.Add(new Funcionario(matricula, nome, departamento, salario, data));
+            i++;
         }
 
         Console.Write("\nDigite o departamento para listar: ");
