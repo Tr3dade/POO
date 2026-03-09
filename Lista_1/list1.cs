@@ -133,13 +133,13 @@ class Program
     {
         Console.WriteLine("Executando: Imprimir número em binário recursivamente");
 
-        // escrita recursiva de binário com 8 bits fixos
-        void PrintBinary(int value, int bits = 8)
+        void PrintBinary(int n)
         {
-            if (bits == 0) return;
-            // chama para o próximo bit mais significativo
-            PrintBinary(value >> 1, bits - 1);
-            Console.Write((value >> (bits - 1)) & 1);
+            if (n == 0)
+                return;
+
+            PrintBinary(n / 2);
+            Console.Write(n % 2);
         }
 
         Console.Write("n = ");
@@ -151,42 +151,41 @@ class Program
             return;
         }
 
-        PrintBinary(n);
-        Console.WriteLine();
+        if (n == 0)
+        {
+            Console.WriteLine("0");
+        }
+        else
+        {
+            PrintBinary(n);
+            Console.WriteLine();
+        }
     }
 
     //  ATIVIDADE 6 
     static void Atv6()
     {
         Console.WriteLine("Executando: Gerenciar cadastro de funcionários");
+        const int TAM = 50;
+        Funcionario[] funcionarios = new Funcionario[TAM];
+        int quantidade = 0;
 
-        List<Funcionario> funcionarios = new List<Funcionario>();
+        Console.Write("Quantos funcionários deseja cadastrar? (máx 50): ");
+        quantidade = int.Parse(Console.ReadLine());
 
-        Console.Write("Quantos funcionários deseja cadastrar? ");
-        int total = int.Parse(Console.ReadLine());
-
-        int i = 0;
-        while (funcionarios.Count < total)
+        if (quantidade < 0 || quantidade > TAM)
         {
-            Console.WriteLine($"\nCadastro de Funcionário {i + 1}");
+            Console.WriteLine("Quantidade inválida.");
+            return;
+        }
 
-            string matricula;
-            do
-            {
-                Console.Write("Matrícula: ");
-                matricula = Console.ReadLine();
-                if (string.IsNullOrWhiteSpace(matricula))
-                {
-                    Console.WriteLine("Matrícula não pode ser vazia.");
-                    continue;
-                }
+        // ================= CADASTRO =================
+        for (int i = 0; i < quantidade; i++)
+        {
+            Console.WriteLine($"\nCadastro do Funcionário {i + 1}");
 
-                if (funcionarios.Any(f => f.Matricula == matricula))
-                {
-                    Console.WriteLine("Matrícula já cadastrada. Digite uma matrícula diferente.");
-                    matricula = null; // força repetição
-                }
-            } while (string.IsNullOrWhiteSpace(matricula));
+            Console.Write("Matrícula: ");
+            string matricula = Console.ReadLine();
 
             Console.Write("Nome: ");
             string nome = Console.ReadLine();
@@ -197,29 +196,52 @@ class Program
             Console.Write("Salário: ");
             double salario = double.Parse(Console.ReadLine());
 
-            Console.Write("Dia: ");
+            Console.Write("Dia de admissão: ");
             int dia = int.Parse(Console.ReadLine());
 
-            Console.Write("Mês: ");
+            Console.Write("Mês de admissão: ");
             int mes = int.Parse(Console.ReadLine());
 
-            Console.Write("Ano: ");
+            Console.Write("Ano de admissão: ");
             int ano = int.Parse(Console.ReadLine());
 
             Data data = new Data(dia, mes, ano);
-            funcionarios.Add(new Funcionario(matricula, nome, departamento, salario, data));
-            i++;
+
+            funcionarios[i] = new Funcionario(
+                matricula,
+                nome,
+                departamento,
+                salario,
+                data
+            );
         }
 
+        // ================= LISTAGEM POR DEPARTAMENTO =================
         Console.Write("\nDigite o departamento para listar: ");
         string depBusca = Console.ReadLine();
 
-        var encontrados = funcionarios.Where(f => f.Departamento == depBusca).ToList();
+        bool encontrou = false;
 
-        if (encontrados.Count == 0)
-            Console.WriteLine("Nenhum funcionário encontrado.");
-        else
-            encontrados.ForEach(f => Console.WriteLine(f));
+        for (int i = 0; i < quantidade; i++)
+        {
+            if (funcionarios[i].GetDepartamento() == depBusca)
+            {
+                Console.WriteLine("\nFuncionário encontrado:");
+                Console.WriteLine("Matrícula: " + funcionarios[i].GetMatricula());
+                Console.WriteLine("Nome: " + funcionarios[i].GetNome());
+                Console.WriteLine("Departamento: " + funcionarios[i].GetDepartamento());
+                Console.WriteLine("Salário: " + funcionarios[i].GetSalario());
+                Console.WriteLine("Data de Admissão: " + funcionarios[i].GetDataAdmissao());
+                encontrou = true;
+            }
+        }
+
+        if (!encontrou)
+        {
+            Console.WriteLine("Nenhum funcionário encontrado nesse departamento.");
+        }
+
+        Console.WriteLine("\nPrograma encerrado.");
     }
 
     //  ATIVIDADE 7 
@@ -236,9 +258,7 @@ class Program
         {
             Console.WriteLine("\n1-Preencher 2-Recuperar 3-Existe 4-Soma 5-Pares 6-Ímpares 7-Listar 0-Sair");
             int op = int.Parse(Console.ReadLine());
-
             if (op == 0) break;
-
             switch (op)
             {
                 case 1:
@@ -248,7 +268,6 @@ class Program
                     int val = int.Parse(Console.ReadLine());
                     v.Preencher(p, val);
                     break;
-
                 case 2:
                     Console.Write("Posição: ");
                     Console.WriteLine(v.Recuperar(int.Parse(Console.ReadLine())));
@@ -258,19 +277,15 @@ class Program
                     Console.Write("Valor: ");
                     Console.WriteLine(v.Existe(int.Parse(Console.ReadLine())) ? "Existe" : "Não existe");
                     break;
-
                 case 4:
                     Console.WriteLine("Soma: " + v.Soma());
                     break;
-
                 case 5:
                     Console.WriteLine("Soma Pares: " + v.SomaPar());
                     break;
-
                 case 6:
                     Console.WriteLine("Soma Ímpares: " + v.SomaImpar());
                     break;
-
                 case 7:
                     v.Lista();
                     break;
@@ -309,40 +324,49 @@ class Program
 //  CLASSES AUXILIARES 
 class Data
 {
-    public int Dia, Mes, Ano;
+    private int dia;
+    private int mes;
+    private int ano;
 
-    public Data(int dia, int mes, int ano)
+    public Data(int d, int m, int a)
     {
-        Dia = dia;
-        Mes = mes;
-        Ano = ano;
+        dia = d;
+        mes = m;
+        ano = a;
     }
+
+    public int GetDia() { return dia; }
+    public int GetMes() { return mes; }
+    public int GetAno() { return ano; }
 
     public override string ToString()
     {
-        return $"{Dia:D2}/{Mes:D2}/{Ano}";
+        return dia.ToString("D2") + "/" + mes.ToString("D2") + "/" + ano;
     }
 }
 
 class Funcionario
 {
-    public string Matricula, Nome, Departamento;
-    public double Salario;
-    public Data DataAdmissao;
+    private string matricula;
+    private string nome;
+    private string departamento;
+    private double salario;
+    private Data dataAdmissao;
 
     public Funcionario(string m, string n, string d, double s, Data data)
     {
-        Matricula = m;
-        Nome = n;
-        Departamento = d;
-        Salario = s;
-        DataAdmissao = data;
+        matricula = m;
+        nome = n;
+        departamento = d;
+        salario = s;
+        dataAdmissao = data;
     }
 
-    public override string ToString()
-    {
-        return $"Matrícula: {Matricula}, Nome: {Nome}, Departamento: {Departamento}, Salário: {Salario}, Data: {DataAdmissao}";
-    }
+    public string GetMatricula() { return matricula; }
+    public string GetNome() { return nome; }
+    public string GetDepartamento() { return departamento; }
+    public double GetSalario() { return salario; }
+    public Data GetDataAdmissao() { return dataAdmissao; }
 }
 
 class Vetor
