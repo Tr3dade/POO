@@ -89,7 +89,6 @@ class Program
             opcao = Console.ReadLine();
         } while (opcao?.ToLower() == "s");
 
-        //Resumo final 
         Console.WriteLine("\n=== Resumo da Conta ===");
         Console.WriteLine($"Titular: {conta.getTitular()}");
         Console.WriteLine($"Saldo final: R$ {conta.getSaldo():F2}");
