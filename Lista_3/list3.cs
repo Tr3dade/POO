@@ -94,3 +94,73 @@ class Program
         Console.WriteLine($"Saldo final: R$ {conta.getSaldo():F2}");
     }
 }
+
+
+
+
+
+// QUESTÃO 2
+
+class Funcionario
+{
+  
+    private string nome;
+    private double salario;
+
+    // Getters
+    public string getNome()
+    {
+        return nome;
+    }
+
+    public double getSalario()
+    {
+        return salario;
+    }
+
+    // Setters
+    public void setNome(string nome)
+    {
+        this.nome = nome;
+    }
+
+    public void setSalario(double salario)
+    {
+        this.salario = salario;
+    }
+
+    // Método 
+    public void AumentarSalario(double percentual)
+    {
+        double aumento = salario * (percentual / 100);
+        salario += aumento;
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Funcionario f = new Funcionario();
+
+        Console.Write("Digite o nome do funcionário: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Digite o salário inicial: ");
+        double salarioInicial = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Digite o percentual de aumento: ");
+        double percentual = Convert.ToDouble(Console.ReadLine());
+
+        f.setNome(nome);
+        f.setSalario(salarioInicial);
+
+        f.AumentarSalario(percentual);
+
+        Console.WriteLine("\n----- Resultado -----");
+        Console.WriteLine("Funcionário: " + f.getNome());
+        Console.WriteLine("Salário inicial: " + salarioInicial);
+        Console.WriteLine("Percentual de aumento: " + percentual + "%");
+        Console.WriteLine("Novo salário: " + f.getSalario());
+    }
+}
