@@ -76,3 +76,62 @@ class Program
         Aluno.ExibirTotalAlunos();
     }
 }
+
+//===================
+
+
+class Curso
+{
+
+    private string nome;
+    private int cargaHoraria;
+
+    // Construtor 1
+    public Curso(string nome)
+    {
+        this.nome = nome;
+        this.cargaHoraria = 40;
+    }
+
+    // Construtor 2
+    public Curso(string nome, int cargaHoraria)
+    {
+        this.nome = nome;
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    //exibir
+     public void ExibirDados(){
+        Console.WriteLine("Curso: " + nome);
+        Console.WriteLine("Carga Horária: " + cargaHoraria + " horas");
+        Console.WriteLine();
+    }
+
+    // Destrutor
+    ~Curso()
+    {
+        Console.WriteLine("Curso " + nome + " removido da memória.");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+        Curso curso1 = new Curso("Programação em C#");
+
+
+        Curso curso2 = new Curso("Banco de Dados", 80);
+
+        curso1.ExibirDados();
+        curso2.ExibirDados();
+
+        Console.WriteLine("Os cursos foram criados com sucesso.");
+
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+
+        Console.WriteLine("Finalizando o programa...");
+    }
+}
