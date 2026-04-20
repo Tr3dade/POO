@@ -107,6 +107,72 @@ using System.Collections.Generic;
 
 //Parte 3 ===============================================================
 
+// class Aluno
+// {
+//     private string nome;
+
+//     public string GetNome()
+//     {
+//         return nome;
+//     }
+
+//     public void SetNome(string nome)
+//     {
+//         this.nome = nome;
+//     }
+
+//     public Aluno(string nome)
+//     {
+//         this.nome = nome;
+//     }
+
+//     public void ExibirNome()
+//     {
+//         Console.WriteLine("Aluno: " + nome);
+//     }
+// }
+
+// class EscolaAgregacao
+// {
+//     private List<Aluno> alunos = new List<Aluno>();
+
+//     public void AdicionarAluno(Aluno aluno)
+//     {
+//         alunos.Add(aluno);
+//     }
+
+//     public void ExibirAlunos()
+//     {
+//         Console.WriteLine("Lista de alunos (Agregação):");
+
+//         foreach (Aluno aluno in alunos)
+//         {
+//             Console.WriteLine("- " + aluno.GetNome());
+//         }
+//     }
+// }
+
+// class Program
+// {
+//     static void Main(string[] args)
+//     {
+//         EscolaAgregacao escola = new EscolaAgregacao();
+
+//         Aluno a1 = new Aluno("Matheus");
+//         Aluno a2 = new Aluno("João");
+//         Aluno a3 = new Aluno("Maria");
+
+//         escola.AdicionarAluno(a1);
+//         escola.AdicionarAluno(a2);
+//         escola.AdicionarAluno(a3);
+
+//         escola.ExibirAlunos();
+
+//         Console.ReadLine();
+//     }
+// }
+
+//Parte 4 ===============================================================
 
 class Aluno
 {
@@ -115,11 +181,6 @@ class Aluno
     public string GetNome()
     {
         return nome;
-    }
-
-    public void SetNome(string nome)
-    {
-        this.nome = nome;
     }
 
     public Aluno(string nome)
@@ -133,18 +194,19 @@ class Aluno
     }
 }
 
-class EscolaAgregacao
+class EscolaComposicao
 {
     private List<Aluno> alunos = new List<Aluno>();
 
-    public void AdicionarAluno(Aluno aluno)
+    public void AdicionarAluno(string nome)
     {
-        alunos.Add(aluno);
+        Aluno novoAluno = new Aluno(nome);
+        alunos.Add(novoAluno);
     }
 
     public void ExibirAlunos()
     {
-        Console.WriteLine("Lista de alunos (Agregação):");
+        Console.WriteLine("Lista de alunos (Composição):");
 
         foreach (Aluno aluno in alunos)
         {
@@ -157,15 +219,11 @@ class Program
 {
     static void Main(string[] args)
     {
-        EscolaAgregacao escola = new EscolaAgregacao();
+        EscolaComposicao escola = new EscolaComposicao();
 
-        Aluno a1 = new Aluno("Matheus");
-        Aluno a2 = new Aluno("João");
-        Aluno a3 = new Aluno("Maria");
-
-        escola.AdicionarAluno(a1);
-        escola.AdicionarAluno(a2);
-        escola.AdicionarAluno(a3);
+        escola.AdicionarAluno("Matheus");
+        escola.AdicionarAluno("João");
+        escola.AdicionarAluno("Maria");
 
         escola.ExibirAlunos();
 
