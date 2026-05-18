@@ -174,23 +174,41 @@ using System.Collections.Generic;
 
 //Parte 4 ===============================================================
 
+//crie um objeto aluno que tenha os atributos nome, matricula e curso. A escola deve ter uma lista de alunos e um método para adicionar alunos à lista. O aluno deve ter um método para exibir suas informações.
+
 class Aluno
 {
     private string nome;
+    private string matricula;
+    private string curso;
 
     public string GetNome()
     {
         return nome;
     }
 
-    public Aluno(string nome)
+    public string GetMatricula()
     {
-        this.nome = nome;
+        return matricula;
     }
 
-    public void ExibirNome()
+    public string GetCurso()
+    {
+        return curso;
+    }
+
+    public Aluno(string nome, string matricula, string curso)
+    {
+        this.nome = nome;
+        this.matricula = matricula;
+        this.curso = curso;
+    }
+
+    public void ExibirInformacoes()
     {
         Console.WriteLine("Aluno: " + nome);
+        Console.WriteLine("Matrícula: " + matricula);
+        Console.WriteLine("Curso: " + curso);
     }
 }
 
@@ -198,9 +216,9 @@ class EscolaComposicao
 {
     private List<Aluno> alunos = new List<Aluno>();
 
-    public void AdicionarAluno(string nome)
+    public void AdicionarAluno(string nome, string matricula, string curso)
     {
-        Aluno novoAluno = new Aluno(nome);
+        Aluno novoAluno = new Aluno(nome, matricula, curso);
         alunos.Add(novoAluno);
     }
 
@@ -210,7 +228,8 @@ class EscolaComposicao
 
         foreach (Aluno aluno in alunos)
         {
-            Console.WriteLine("- " + aluno.GetNome());
+            aluno.ExibirInformacoes();
+            Console.WriteLine();
         }
     }
 }
@@ -221,9 +240,9 @@ class Program
     {
         EscolaComposicao escola = new EscolaComposicao();
 
-        escola.AdicionarAluno("Matheus");
-        escola.AdicionarAluno("João");
-        escola.AdicionarAluno("Maria");
+        escola.AdicionarAluno("Matheus", "12345", "Engenharia");
+        escola.AdicionarAluno("João", "67890", "Medicina");
+        escola.AdicionarAluno("Maria", "54321", "Direito");
 
         escola.ExibirAlunos();
 
