@@ -1,5 +1,7 @@
-// Exercício 1 
+using System;
+using System.Collections.Generic;
 
+// Exercício 1 
 class Matematica
 {
     public int Multiplicar(int a, int b)
@@ -19,8 +21,6 @@ class Matematica
 }
 
 // Exercício 2
-
-
 class Veiculo
 {
     public virtual void Mover()
@@ -46,7 +46,6 @@ class Bicicleta : Veiculo
 }
 
 // Exercício 3 
-
 class Funcionario
 {
     public virtual void ExibirDados()
